@@ -52,7 +52,7 @@ def main():
     class_names = ['Default','Not Default']
     
     st.sidebar.subheader('Choose Model')
-    Model = st.sidebar.selectbox("Model",('Logistic Regression','Random Forest'))
+    Model = st.sidebar.selectbox("Model",('Logistic Regression','Random Forest','Decision Tree'))
     
     if Model == "Logistic Regression":
         st.sidebar.subheader("Model Hyperparameters")
@@ -90,6 +90,24 @@ def main():
             st.write("Precision:",precision_score(y_test,y_pred).round(2))
             st.write("Recall:",recall_score(y_test,y_pred).round(2))
             plot_metrics(metrics)
+    
+    if Model == "Decision Tree":
+        st.sidebar.subheader("Model Hyperparameters")
+        criterion= st.sidebar.radio('Criterion(measures the quality of split)', ('gini', 'entropy'), key='criterion')
+        splitter = st.sidebar.radio('Splitter (How to split at each node?)', ('best','random'), key='splitter')
+        metrics = st.sidebar.selectbox("Which metrics to plot?",('ROC Curve','Precision Recall Curve','Confusion Matrix'),key='1')
+        
+    if st.sidebar.button("Classify",key='class'):
+        st.subheader('Decision Tree Results')
+        model = DecisionTreeClassifier(criterion=criterion, splitter=splitter)
+        model.fit(x_train, y_train)
+        accuracy = model.score(x_test, y_test)
+        y_pred = model.predict(x_test)
+        st.write('Accuracy:', accuracy.round(2))
+        st.write("Precision:",precision_score(y_test,y_pred).round(2))
+        st.write("Recall:",recall_score(y_test,y_pred).round(2))
+        plot_metrics(metrics)
+        
             
         
     
