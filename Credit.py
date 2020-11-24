@@ -80,7 +80,7 @@ def main():
         bootstrap = st.sidebar.radio("Bootstrap samples when building trees",('True','False'),key='bootstrap')
         metrics = st.sidebar.selectbox("Which metrics to plot?",('ROC Curve','Precision Recall Curve','Confusion Matrix'),key='1')
         
-        if st.sidebar.button("Classify",key='class'):
+        if st.sidebar.button("Classify",key='classify'):
             st.subheader("Random Forest Result")
             Model = RandomForestClassifier(n_estimators=n_estimators,max_depth=max_depth,bootstrap=bootstrap)
             Model.fit(x_train,y_train)
@@ -97,7 +97,7 @@ def main():
         splitter = st.sidebar.radio('Splitter (How to split at each node?)', ('best','random'), key='splitter')
         metrics = st.sidebar.selectbox("Which metrics to plot?",('ROC Curve','Precision Recall Curve','Confusion Matrix'),key='1')
         
-    if st.sidebar.button("Classify",key='class'):
+    if st.sidebar.button("Classify",key='classify'):
         st.subheader('Decision Tree Results')
         model = DecisionTreeClassifier(criterion=criterion, splitter=splitter)
         model.fit(x_train, y_train)
