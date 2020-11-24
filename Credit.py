@@ -9,7 +9,7 @@ from sklearn.metrics import plot_roc_curve,plot_confusion_matrix,plot_precision_
 from sklearn.metrics import precision_score,recall_score
 
 def main():
-    st.title(" Credit Card Clients Default Prediction")
+    st.title("Default of Credit Card Clients")
     st.sidebar.title("Default of Credit Card Clients")
     
     st.markdown("Our client is a credit card company. They have brought us a dataset that includes some demographics and recent financial data (the past six months) for a sample of 30,000 of their account holders. This data is at the credit account level; in other words, there is one row for each account (you should always clarify what the definition of a row is, in a dataset). Rows are labeled by whether in the next month after the six month historical data period, an account owner has defaulted, or in other words, failed to make the minimum payment.")
@@ -27,13 +27,13 @@ def main():
                    'EDUCATION_CAT', 'graduate school', 'high school', 
                    'others', 'university','default payment next month'])
        
-         x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.35,random_state=101)
+         x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=24)
          return x_train,x_test,y_train,y_test
      
     def plot_metrics(metrics_list):
         if 'Confusion Matrix' in metrics_list:
             st.subheader("Confusion Matrix")
-            plot_confusion_matrix(Model,x_test,y_test,display_labels=class_names)
+            plot_(Model,x_test,y_test,display_labels=class_names)
             st.pyplot()
         
         if 'ROC Curve' in metrics_list:
@@ -66,9 +66,10 @@ def main():
             Model.fit(x_train,y_train)
             accuracy = Model.score(x_test,y_test)
             y_pred = Model.predict(x_test)
-            st.write("Accuracy:",accuracy.round(4))
-            st.write("Precision:",precision_score(y_test,y_pred).round(4))
-            st.write("Recall:",recall_score(y_test,y_pred).round(4))
+            precision = precision_score(y_test,y_pred)
+            st.write("Accuracy:",accuracy.round(2))
+            st.write("Precision:",precision.round(2))
+            st.write("Recall:",recall_score(y_test,y_pred).round(2))
             plot_metrics(metrics_log)
         
            
@@ -80,15 +81,15 @@ def main():
         bootstrap = st.sidebar.radio("Bootstrap samples when building trees",('True','False'),key='bootstrap')
         metrics = st.sidebar.selectbox("Which metrics to plot?",('ROC Curve','Precision Recall Curve','Confusion Matrix'),key='1')
         
-        if st.sidebar.button("Classify",key='classify'):
+        if st.sidebar.button("Classify",key='class'):
             st.subheader("Random Forest Result")
             Model = RandomForestClassifier(n_estimators=n_estimators,max_depth=max_depth,bootstrap=bootstrap)
             Model.fit(x_train,y_train)
             accuracy = Model.score(x_test,y_test)
             y_pred = Model.predict(x_test)
-            st.write("Accuracy:",accuracy.round(4))
-            st.write("Precision:",precision_score(y_test,y_pred).round(4))
-            st.write("Recall:",recall_score(y_test,y_pred).round(4))
+            st.write("Accuracy:",accuracy.round(2))
+            st.write("Precision:",precision_score(y_test,y_pred).round(2))
+            st.write("Recall:",recall_score(y_test,y_pred).round(2))
             plot_metrics(metrics)
     
     if Model == "Decision Tree":
@@ -97,16 +98,16 @@ def main():
         splitter = st.sidebar.radio('Splitter (How to split at each node?)', ('best','random'), key='splitter')
         metrics = st.sidebar.selectbox("Which metrics to plot?",('ROC Curve','Precision Recall Curve','Confusion Matrix'),key='1')
         
-    if st.sidebar.button("Classify",key='classify'):
+    if st.sidebar.button("Classify",key='class'):
         st.subheader('Decision Tree Results')
         model = DecisionTreeClassifier(criterion=criterion, splitter=splitter)
         model.fit(x_train, y_train)
         accuracy = model.score(x_test, y_test)
         y_pred = model.predict(x_test)
-        st.write('Accuracy:', accuracy.round(4))
-        st.write("Precision:",precision_score(y_test,y_pred).round(4))
-        st.write("Recall:",recall_score(y_test,y_pred).round(4))
-        
+        st.write('Accuracy:', accuracy.round(2))
+        st.write("Precision:",precision_score(y_test,y_pred).round(2))
+        st.write("Recall:",recall_score(y_test,y_pred).round(2))
+        plot_metrics(metrics)
         
             
         
