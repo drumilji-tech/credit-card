@@ -27,7 +27,7 @@ def main():
                    'EDUCATION_CAT', 'graduate school', 'high school', 
                    'others', 'university','default payment next month'])
        
-         x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=24)
+         x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.35,random_state=101)
          return x_train,x_test,y_train,y_test
      
     def plot_metrics(metrics_list):
@@ -66,9 +66,9 @@ def main():
             Model.fit(x_train,y_train)
             accuracy = Model.score(x_test,y_test)
             y_pred = Model.predict(x_test)
-            st.write("Accuracy:",accuracy.round(2))
-            st.write("Precision:",precision_score(y_test,y_pred).round(2))
-            st.write("Recall:",recall_score(y_test,y_pred).round(2))
+            st.write("Accuracy:",accuracy.round(4))
+            st.write("Precision:",precision_score(y_test,y_pred).round(4))
+            st.write("Recall:",recall_score(y_test,y_pred).round(4))
             plot_metrics(metrics_log)
         
            
@@ -86,9 +86,9 @@ def main():
             Model.fit(x_train,y_train)
             accuracy = Model.score(x_test,y_test)
             y_pred = Model.predict(x_test)
-            st.write("Accuracy:",accuracy.round(2))
-            st.write("Precision:",precision_score(y_test,y_pred).round(2))
-            st.write("Recall:",recall_score(y_test,y_pred).round(2))
+            st.write("Accuracy:",accuracy.round(4))
+            st.write("Precision:",precision_score(y_test,y_pred).round(4))
+            st.write("Recall:",recall_score(y_test,y_pred).round(4))
             plot_metrics(metrics)
     
     if Model == "Decision Tree":
@@ -103,9 +103,9 @@ def main():
         model.fit(x_train, y_train)
         accuracy = model.score(x_test, y_test)
         y_pred = model.predict(x_test)
-        st.write('Accuracy:', accuracy.round(2))
-        st.write("Precision:",precision_score(y_test,y_pred).round(2))
-        st.write("Recall:",recall_score(y_test,y_pred).round(2))
+        st.write('Accuracy:', accuracy.round(4))
+        st.write("Precision:",precision_score(y_test,y_pred).round(4))
+        st.write("Recall:",recall_score(y_test,y_pred).round(4))
         
         
             
