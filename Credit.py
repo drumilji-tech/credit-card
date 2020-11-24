@@ -96,7 +96,7 @@ def main():
         
     if st.sidebar.button("Categorize",key='classify'):
         st.subheader('Decision Tree Results')
-        model = DecisionTreeClassifier(criterion=criterion, splitter=splitter)
+        model = DecisionTreeClassifier()
         model.fit(x_train, y_train)
         accuracy = model.score(x_test, y_test)
         y_pred = model.predict(x_test)
