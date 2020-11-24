@@ -33,7 +33,7 @@ def main():
     def plot_metrics(metrics_list):
         if 'Confusion Matrix' in metrics_list:
             st.subheader("Confusion Matrix")
-            plot_(Model,x_test,y_test,display_labels=class_names)
+            plot_confusion_matrix(Model,x_test,y_test,display_labels=class_names)
             st.pyplot()
         
         if 'ROC Curve' in metrics_list:
@@ -111,7 +111,6 @@ def main():
     if st.sidebar.checkbox("Show Raw Data",False):
         st.subheader("Credit Card Default Data")
         st.write(data)
-
 
 
 
